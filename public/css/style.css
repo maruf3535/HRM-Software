@@ -3408,11 +3408,11 @@ body.layout-3 .main-footer {
 }
 .main-sidebar .sidebar-menu li.menu-header {
   padding: 3px 15px;
-  color: #a1a8ae;
-  font-size: 10px;
+  color: #5e6d7a;
+  font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 1.3px;
-  font-weight: 600;
+  font-weight: 700;
 }
 .main-sidebar .sidebar-menu li.menu-header:not(:first-child) {
   margin-top: 10px;

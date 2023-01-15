@@ -8,6 +8,9 @@ class EmployeeController extends Controller
 {
     public function addEmployee()
     {
-        return "I am in addEmployee func";
+        $data = [
+            'type_menu' => 'layout',
+        ];
+        return view('employee.add-employee', ['data' => $data]);
     }
 }
