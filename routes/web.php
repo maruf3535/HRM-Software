@@ -19,9 +19,12 @@ Route::redirect('/', '/dashboard-general-dashboard');
 Route::prefix('/hrm')->group(function () {
     Route::prefix('/employee')->group(function () {
         Route::get('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add.employee.page');
-        
+        Route::post('/add-employee/basic-information-submit', [EmployeeController::class, 'basicInformationSubmit'])->name('employee.basic.information.submit');
     });
 });
+
+
+
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
     return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
