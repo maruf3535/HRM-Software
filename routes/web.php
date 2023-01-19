@@ -20,6 +20,7 @@ Route::prefix('/hrm')->group(function () {
     Route::prefix('/employee')->group(function () {
         Route::get('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add.employee.page');
         Route::post('/add-employee/basic-information-submit', [EmployeeController::class, 'basicInformationSubmit'])->name('employee.basic.information.submit');
+        Route::post('/add-employee/set-department-name', [EmployeeController::class, 'setDepartmentName'])->name('add.employee.set.department.name');
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
 
 class EmployeeController extends Controller
 {
@@ -13,6 +14,7 @@ class EmployeeController extends Controller
             'type_menu' => 'layout',
         ];
         return view('employee.add-employee', ['data' => $data]);
+        // return view('pages.bootstrap-modal', ['data' => $data]);
     }
 
     public function basicInformationSubmit(Request $req)
@@ -23,15 +25,9 @@ class EmployeeController extends Controller
          // Validate the data
          $req->validate([
             'first_name'            => 'required',
-            'middle_name'           => 'required',
-            'last_name'             => 'required',
-            'nickname'              => 'required',
-            'email'                 => 'required|email|unique:users',
-            'alternative_email'     => 'required|email',
             'gender'                => 'required',
             'date_of_birth'         => 'required',
             'mobile_number'         => 'required',
-            'phone_number'          => 'required',
             // 'password'              => 'required|min:5|max:30|confirmed'
         ]);
 
@@ -58,5 +54,28 @@ class EmployeeController extends Controller
         }
         die();
         // return 
+    }
+
+    public function setDepartmentName(Request $req)
+    {
+        // Validate the data
+        $req->validate([
+            'set_department_name'            => 'required',
+        ]);
+
+
+        // Department form submitted withh time.
+
+        $department                     = new Department();
+        $department->department_name    = $req->set_department_name;
+        $department_save                = $department->save();
+        if($department_save){
+            echo "Success";
+        }
+        else{
+            echo "Unsuccess";
+        }
+        die();
+
     }
 }

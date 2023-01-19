@@ -16,6 +16,8 @@
             color: red;
         }
     </style>
+
+    <link rel="stylesheet" href="{{ asset('library/prismjs/themes/prism.min.css') }}">
 @endpush
 
 @section('main')
@@ -46,7 +48,7 @@
                                         <input type="text" class="form-control" name="first_name" maxlength="35"
                                             required>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label>Middle Name</label>
                                         <input type="text" class="form-control" name="middle_name" maxlength="35">
@@ -133,19 +135,57 @@
                                 <div class="card-body">
 
                                     <div class="form-group">
-                                        <label>Department <span class="required-star"><button id="modal-login-part" class="badge badge-primary" style="cursor: pointer;">Set</button></span></label>
+                                        <label>Department
+                                            <span class="required-star">
+                                                <button class="btn btn-primary" id="department-set">Set</button>
+                                            </span>
+                                        </label>
                                         <select class="form-control select2" name="gender" required>
                                             <option value="-1">Please Select One</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="9">Other</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="9">Option 3</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select class="form-control select2" name="gender" required>
+                                            <option value="-1">Please Select One</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="9">Option 3</option>
                                         </select>
                                     </div>
 
-                                    {{-- <button class="btn btn-primary" id="modal-login-part">Login</button> --}}
+                                    
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <select class="form-control select2" name="gender" required>
+                                            <option value="-1">Please Select One</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="9">Option 3</option>
+                                        </select>
+                                    </div>
 
-                        
 
+                                    <div class="form-group">
+                                        <label>Work Phone <span class="required-star">*</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control work-phone number-input"
+                                                name="work_phone_number" maxlength="15" required>
+                                        </div>
+                                        <span>Only number!</span>
+                                    </div>
+
+
+                                    {{-- In time & out time is remain. --}}
 
 
                                     <div class="form-group">
@@ -176,10 +216,11 @@
 
                                     <div class="form-group">
                                         <label>Alternative Email</label>
-                                        <input type="email" class="form-control" name="alternative_email" maxlength="255">
+                                        <input type="email" class="form-control" name="alternative_email"
+                                            maxlength="255">
                                     </div>
 
-                                    
+
 
                                     <div class="form-group">
                                         <label>Date of Birth <span class="required-star">*</span></label>
@@ -226,38 +267,36 @@
                 </div>
             </div>
         </section>
-        <form class="modal-part" id="modal-login-part">
-            <p>This login form is taken from elements with <code>#modal-login-part</code> id.</p>
+    </div>
+
+
+
+
+
+    {{-- Modal box when clisk 'set' beside the department section in form, start --}}
+    <div class="main-content">
+        <form action="{{ route('add.employee.set.department.name') }}" method="POST" class="modal-part"
+            id="department-set-modal">
+            @csrf
             <div class="form-group">
-                <label>Username</label>
+                <label>Department Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <i class="fas fa-envelope"></i>
+                            <i class="fa-solid fa-house-laptop"></i>
                         </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Email" name="email">
+                    <input type="text" class="form-control" placeholder="Department Name" id="set_department_name"
+                        name="set_department_name" required>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                    </div>
-                    <input type="password" class="form-control" placeholder="Password" name="password">
-                </div>
-            </div>
-            <div class="form-group mb-0">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
-                    <label class="custom-control-label" for="remember-me">Remember Me</label>
+                <div class="card-footer text-right" style="padding-right: 0rem;">
+                    <button class="btn btn-primary">Save</button>
                 </div>
             </div>
         </form>
     </div>
+    {{-- Modal box when clisk 'set' beside the department section in form, end --}}
+
 @endsection
 
 @push('scripts')
@@ -272,9 +311,44 @@
             })
         });
     </script>
-    <!-- Page Specific JS File -->
+
+    {{-- Set department modal js - form control --}}
+    <script>
+        $("#department-set").fireModal({
+            title: 'Add Department',
+            body: $("#department-set-modal"),
+            // footerClass: 'bg-whitesmoke',
+            // autoFocus: false,
+            // onFormSubmit: function(modal, e, form) {
+            //   // Form Data
+            //   let form_data = $(e.target).serialize();
+            //   console.log(form_data)
+
+            //   // DO AJAX HERE
+            //   let fake_ajax = setTimeout(function() {
+            //     form.stopProgress();
+            //     modal.find('.modal-body').prepend('<div class="alert alert-info">Please check your browser console</div>')
+
+            //     clearInterval(fake_ajax);
+            //   }, 1500);
+
+            //   e.preventDefault();
+            // },
+            // shown: function(modal, form) {
+            //   console.log(form)
+            // },
+            // buttons: [{
+            //     text: 'Save',                
+            //     submit: true,
+            //     class: 'btn btn-primary btn-shadow',
+            //     handler: function(modal) {}
+            // }]
+        });
+    </script>
+
+    <!-- JS Libraies -->
     <script src="{{ asset('library/prismjs/prism.js') }}"></script>
 
+    <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
-
 @endpush
