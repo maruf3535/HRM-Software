@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Department;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
     public function addEmployee()
     {
         $data = [
-            'type_menu' => 'layout',
+            'type_menu'                     => 'layout',
+            'department_list'               => db::table('departments')->get(),
+            'employee_type_list'            => db::table('employee_types')->get(),
+            'employee_position_list'        => db::table('employee_positions')->get(),
         ];
         return view('employee.add-employee', ['data' => $data]);
-        // return view('pages.bootstrap-modal', ['data' => $data]);
+        // return view('pages.forms-advanced-form', ['data' => $data]);
     }
 
     public function basicInformationSubmit(Request $req)
@@ -59,9 +63,14 @@ class EmployeeController extends Controller
     public function setDepartmentName(Request $req)
     {
         // Validate the data
-        $req->validate([
-            'set_department_name'            => 'required',
-        ]);
+        $req->validate(
+            [
+            'set_department_name'            => 'required|unique:departments,department_name',
+            ],
+            [
+            'set_department_name.unique'     => "This name has already been taken."
+            ]
+    );
 
 
         // Department form submitted withh time.
@@ -70,12 +79,14 @@ class EmployeeController extends Controller
         $department->department_name    = $req->set_department_name;
         $department_save                = $department->save();
         if($department_save){
-            echo "Success";
+            return redirect()->back();
         }
         else{
-            echo "Unsuccess";
+            $data = [
+                'page_url' => url()->previous(),
+                'msg' => 'Go Back'
+            ];
+            return view('error_pages.error-500', ['data' => $data]);
         }
-        die();
-
     }
 }

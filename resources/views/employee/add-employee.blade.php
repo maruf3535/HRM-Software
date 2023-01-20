@@ -32,8 +32,22 @@
                 </div>
             </div>
 
-            <div class="section-body">
+            {{-- Alert message --}}
+            @if ($errors->has('set_department_name'))
+                <div class="alert alert-danger alert-dismissible show fade">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>&times;</span>
+                        </button>
+                        @error('set_department_name')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            @endif
+            {{-- Alert message --}}
 
+            <div class="section-body">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
@@ -142,30 +156,30 @@
                                         </label>
                                         <select class="form-control select2" name="gender" required>
                                             <option value="-1">Please Select One</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="9">Option 3</option>
+                                            @foreach ($data['department_list'] as $item)
+                                                <option value="{{ $item->id }}">{{ $item->department_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label>Type</label>
                                         <select class="form-control select2" name="gender" required>
                                             <option value="-1">Please Select One</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="9">Option 3</option>
+                                            @foreach ($data['employee_type_list'] as $item)
+                                                <option value="{{ $item->id }}">{{ $item->employee_type }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
-                                    
+
                                     <div class="form-group">
                                         <label>Position</label>
                                         <select class="form-control select2" name="gender" required>
                                             <option value="-1">Please Select One</option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="9">Option 3</option>
+                                            @foreach ($data['employee_position_list'] as $item)
+                                                <option value="{{ $item->id }}">{{ $item->position_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -184,75 +198,28 @@
                                         <span>Only number!</span>
                                     </div>
 
-
-                                    {{-- In time & out time is remain. --}}
-
-
                                     <div class="form-group">
-                                        <label>First Name <span class="required-star">*</span> </label>
-                                        <input type="text" class="form-control" name="first_name" maxlength="35"
-                                            required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Middle Name</label>
-                                        <input type="text" class="form-control" name="middle_name" maxlength="35">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" maxlength="35">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Nick Name</label>
-                                        <input type="text" class="form-control" name="nickname" maxlength="35">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" class="form-control" name="email" maxlength="255">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Alternative Email</label>
-                                        <input type="email" class="form-control" name="alternative_email"
-                                            maxlength="255">
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label>Date of Birth <span class="required-star">*</span></label>
-                                        <input type="date" class="form-control" name="date_of_birth" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Mobile Number <span class="required-star">*</span></label>
+                                        <label>In Time <span class="required-star">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <i class="fas fa-phone"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control mobile-number number-input"
-                                                name="mobile_number" maxlength="15" required>
+                                            <input type="time" class="form-control" name="in_time" required>
                                         </div>
-                                        <span>Only number!</span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Phone Number</label>
+                                        <label>Out Time <span class="required-star">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <i class="fas fa-phone"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control phone-number number-input"
-                                                name="phone_number" maxlength="15">
+                                            <input type="time" class="form-control" name="out_time" required>
                                         </div>
-                                        <span>Only number!</span>
                                     </div>
                                 </div>
                                 <div class="card-footer text-right">
@@ -260,10 +227,7 @@
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
-
                 </div>
             </div>
         </section>
@@ -307,7 +271,12 @@
         // console.log(numbers);
         numbers.forEach(elm => {
             elm.addEventListener('input', () => {
-                elm.value = parseInt(elm.value)
+                value = parseInt(elm.value)
+                if (!isNaN(value)) {
+                    elm.value = parseInt(elm.value)
+                } else {
+                    elm.value = 0
+                }
             })
         });
     </script>
@@ -348,6 +317,18 @@
 
     <!-- JS Libraies -->
     <script src="{{ asset('library/prismjs/prism.js') }}"></script>
+    <!-- JS Libraies -->
+    <script src="{{ asset('library/cleave.js/dist/cleave.min.js') }}"></script>
+    <script src="{{ asset('library/cleave.js/dist/addons/cleave-phone.us.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script>
