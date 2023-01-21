@@ -90,7 +90,7 @@
 
                                     <div class="form-group">
                                         <label>Gender <span class="required-star">*</span></label>
-                                        <select class="form-control select2" name="gender" required>
+                                        <select class="form-control" name="gender" required>
                                             <option value="-1">Please Select One</option>
                                             <option value="1">Male</option>
                                             <option value="2">Female</option>
@@ -136,25 +136,35 @@
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
-                            <form action="{{ route('employee.basic.information.submit') }}" method="post">
+                            <form action="{{ route('employee.information.submit') }}" method="post">
                                 @csrf
                                 <div class="card-header">
                                     <h4>Employee Information</h4>
+                                    <span class="required-star">(Fill the basic information first)</span>
                                 </div>
                                 <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Id Number <span class="required-star">*</span> </label>
+                                        <input type="text" class="form-control" name="first_name" maxlength="35"
+                                            required>
+                                    </div>
+
+
+                                    {{-- ???How to add prefix in a primary key??? --}}
+
+
 
                                     <div class="form-group">
-                                        <label>Department
+                                        <label>
+                                            Department<span class="required-star">*</span>
                                             <span class="required-star">
                                                 <button class="btn btn-primary" id="department-set">Set</button>
                                             </span>
                                         </label>
-                                        <select class="form-control select2" name="gender" required>
+                                        <select class="form-control" name="employee_department" required>
                                             <option value="-1">Please Select One</option>
                                             @foreach ($data['department_list'] as $item)
                                                 <option value="{{ $item->id }}">{{ $item->department_name }}</option>
@@ -163,8 +173,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Type</label>
-                                        <select class="form-control select2" name="gender" required>
+                                        <label>Type<span class="required-star">*</span></label>
+                                        <select class="form-control" name="employee_type" required>
                                             <option value="-1">Please Select One</option>
                                             @foreach ($data['employee_type_list'] as $item)
                                                 <option value="{{ $item->id }}">{{ $item->employee_type }}</option>
@@ -174,8 +184,8 @@
 
 
                                     <div class="form-group">
-                                        <label>Position</label>
-                                        <select class="form-control select2" name="gender" required>
+                                        <label>Position<span class="required-star">*</span></label>
+                                        <select class="form-control" name="employee_position" required>
                                             <option value="-1">Please Select One</option>
                                             @foreach ($data['employee_position_list'] as $item)
                                                 <option value="{{ $item->id }}">{{ $item->position_name }}</option>
@@ -185,7 +195,7 @@
 
 
                                     <div class="form-group">
-                                        <label>Work Phone <span class="required-star">*</span></label>
+                                        <label>Work Phone</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">
@@ -193,7 +203,7 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control work-phone number-input"
-                                                name="work_phone_number" maxlength="15" required>
+                                                name="work_phone_number" maxlength="15">
                                         </div>
                                         <span>Only number!</span>
                                     </div>

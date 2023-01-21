@@ -23,9 +23,6 @@ class EmployeeController extends Controller
 
     public function basicInformationSubmit(Request $req)
     {
-        // echo "<pre>";
-        // print_r($req->all());
-
          // Validate the data
          $req->validate([
             'first_name'            => 'required',
@@ -69,6 +66,44 @@ class EmployeeController extends Controller
             ],
             [
             'set_department_name.unique'     => "This name has already been taken."
+            ]
+    );
+
+
+        // Department form submitted withh time.
+
+        $department                     = new Department();
+        $department->department_name    = $req->set_department_name;
+        $department_save                = $department->save();
+        if($department_save){
+            return redirect()->back();
+        }
+        else{
+            $data = [
+                'page_url' => url()->previous(),
+                'msg' => 'Go Back'
+            ];
+            return view('error_pages.error-500', ['data' => $data]);
+        }
+    }
+
+    public function employeeInformationSubmit(Request $req)
+    {
+         // Validate the data
+         $req->validate(
+            [
+            'employee_department'       => 'required',
+            'employee_type'             => 'required',
+            'employee_position'         => 'required',
+            'in_time'                   => 'required',
+            'out_time'                  => 'required',
+            ],
+            [
+            'employee_department.required'      => "Please Choose at least one.",
+            'employee_type.required'            => "Please Choose at least one.",
+            'employee_position.required'        => "Please Choose at least one.",
+            'in_time.required'                  => "Please Choose in time.",
+            'out_time.required'                 => "Please Choose out time.",
             ]
     );
 
