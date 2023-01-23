@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_education', function (Blueprint $table) {
+        Schema::create('education_institutions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('value', 200);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_education');
+        Schema::dropIfExists('education_institutions');
     }
 };

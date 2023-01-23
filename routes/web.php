@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Models\FamilyInfo;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +24,23 @@ Route::prefix('/hrm')->group(function () {
         Route::post('/add-employee/basic-information-submit', [EmployeeController::class, 'basicInformationSubmit'])->name('employee.basic.information.submit');
         Route::post('/add-employee/set-department-name', [EmployeeController::class, 'setDepartmentName'])->name('add.employee.set.department.name');
         Route::post('/add-employee/employee-information-submit', [EmployeeController::class, 'employeeInformationSubmit'])->name('employee.information.submit');
+        Route::get('/test', function(){
+            $test   = new FamilyInfo();
+            $test->user_id  = "1";
+            $test->first_name  = "test";
+            // $test->relation  = "1";
+            $test->save();
+            if($test){
+                return "S";
+            }
+            else{
+                return "U";
+            }
+
+        });
     });
 });
+
 
 
 

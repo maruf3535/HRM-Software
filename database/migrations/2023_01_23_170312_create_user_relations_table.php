@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('address_type', function (Blueprint $table) {
+        Schema::create('user_relations', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 20);
+            $table->string('value', 10);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address_type');
+        Schema::dropIfExists('user_relations');
     }
 };

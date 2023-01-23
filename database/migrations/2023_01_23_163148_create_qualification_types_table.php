@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_relation', function (Blueprint $table) {
+        Schema::create('qualification_types', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 10);
+            $table->string('value', 100);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_relation');
+        Schema::dropIfExists('qualification_types');
     }
 };

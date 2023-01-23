@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('qualification_type', function (Blueprint $table) {
+        Schema::create('education_boards', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 100);
+            $table->string('value', 50);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qualification_type');
+        Schema::dropIfExists('education_boards');
     }
 };
