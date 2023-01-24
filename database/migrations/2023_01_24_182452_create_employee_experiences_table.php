@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_educations', function (Blueprint $table) {
+        Schema::create('employee_experiences', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->foreignId('qualification_type')->nullable()->references('id')->on('qualification_types');
-            $table->foreignId('major')->nullable()->references('id')->on('education_majors');
-            $table->foreignId('institution')->nullable()->references('id')->on('education_institutions');
-            $table->foreignId('board')->nullable()->references('id')->on('education_boards');
+            $table->foreignId('institution')->nullable()->references('id')->on('experience_institutions');
             $table->string('passing_year', 4)->nullable();
             $table->string('result', 5)->nullable();
             $table->datetime('start_date')->nullable();
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_educations');
+        Schema::dropIfExists('employee_experiences');
     }
 };

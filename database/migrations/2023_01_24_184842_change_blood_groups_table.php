@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('religion', function (Blueprint $table) {
-            $table->id();
-            $table->string('value', 100);
+        Schema::table('blood_groups', function (Blueprint $table) {
+            $table->string('value', 10)->nullable()->change();
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('religion');
+        Schema::table('blood_groups', function (Blueprint $table) {
+            //
+        });
     }
 };
