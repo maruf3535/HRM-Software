@@ -13,12 +13,16 @@
         }
 
         .required-star {
-            color: red;
+            color: rgb(197, 77, 77);
         }
     </style>
 
     <link rel="stylesheet" href="{{ asset('library/prismjs/themes/prism.min.css') }}">
 @endpush
+
+@if (array_key_exists('basic_information', $data))
+    {{ $data['basic_information'] }}
+@endif
 
 @section('main')
     <div class="main-content">
@@ -61,7 +65,13 @@
                                         <label>First Name <span class="required-star">*</span> </label>
                                         <input type="text" class="form-control" name="first_name" maxlength="35"
                                             required>
+                                        <span class="required-star">
+                                            @error('first_name')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label>Middle Name</label>
@@ -96,11 +106,21 @@
                                             <option value="2">Female</option>
                                             <option value="9">Other</option>
                                         </select>
+                                        <span class="required-star">
+                                            @error('gender')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Date of Birth <span class="required-star">*</span></label>
                                         <input type="date" class="form-control" name="date_of_birth" required>
+                                        <span class="required-star">
+                                            @error('date_of_birth')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
 
                                     <div class="form-group">
@@ -115,6 +135,11 @@
                                                 name="mobile_number" maxlength="15" required>
                                         </div>
                                         <span>Only number!</span>
+                                        <span class="required-star">
+                                            @error('mobile_number')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
                                     </div>
 
                                     <div class="form-group">
@@ -130,6 +155,27 @@
                                         </div>
                                         <span>Only number!</span>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Joining Date <span class="required-star">*</span></label>
+                                        <input type="date" class="form-control" name="joining_date" required>
+                                        <span class="required-star">
+                                            @error('joining_date')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Billing Start Date <span class="required-star">*</span></label>
+                                        <input type="date" class="form-control" name="billing_start_date" required>
+                                        <span class="required-star">
+                                            @error('billing_start_date')
+                                                {{ $message }}
+                                            @enderror
+                                        </span>
+                                    </div>
+
                                 </div>
                                 <div class="card-footer text-right">
                                     <button class="btn btn-primary">Submit</button>

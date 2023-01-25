@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('blood_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('holding_no', 20);
-            $table->string('road_no', 20);
-            $table->string('area', 20);
-            $table->string('post_code', 10);
-            $table->integer('type');
+            $table->string('value', 10)->unique();
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('address');
+        Schema::dropIfExists('blood_groups');
     }
 };

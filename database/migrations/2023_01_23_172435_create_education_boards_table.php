@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('education_boards', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 50);
+            $table->string('value', 50)->unique();
         });
     }
 

@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('employment_information', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->references('id')->on('users');
             $table->foreignId('department_id')->nullable()->references('id')->on('departments');
-            $table->foreignId('employee_type_id')->nullable()->references('id')->on('employee_types');
-            $table->foreignId('employee_position_id')->nullable()->references('id')->on('employee_positions');
+            $table->foreignId('employee_type_id')->references('id')->on('employee_types');
+            $table->foreignId('employee_position_id')->references('id')->on('employee_positions');
             $table->string('work_phone', 15)->nullable();
-            $table->time('in_time')->nullable();
-            $table->time('out_time')->nullable();
+            $table->time('in_time');
+            $table->time('out_time');
         });
     }
 

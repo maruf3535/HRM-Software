@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id')->nullable()->references('id')->on('users');
+            $table->string('holding_no', 20)->nullable();
+            $table->string('road_no', 20)->nullable();
+            $table->string('area', 20)->nullable();
+            $table->string('post_code', 10)->nullable();
+            $table->integer('same_as_present')->nullable();
+            $table->foreignID('type')->nullable()->references('id')->on('address_types');
         });
     }
 

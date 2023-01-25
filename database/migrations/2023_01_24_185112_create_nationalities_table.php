@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('nationalities', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 150)->nullable();
+            $table->string('value', 150)->unique();
         });
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('education_institutions', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 200);
+            $table->string('value', 200); // not unique
         });
     }
 

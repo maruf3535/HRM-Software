@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('address_types', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 20);
+            $table->string('value', 20)->unique();
         });
     }
 

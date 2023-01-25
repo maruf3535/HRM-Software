@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('alter_email', 255)->unique()->nullable();
             $table->string('mobile_no', 15);
             $table->string('phone_no', 15)->nullable();
+            $table->datetime('joining_date');
+            $table->datetime('billing_start_date');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password'); // default->$default_password (helper)
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 

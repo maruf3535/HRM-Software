@@ -23,16 +23,34 @@ class EmployeeController extends Controller
 
     public function basicInformationSubmit(Request $req)
     {
+
+        $default_password = '12345';
+
          // Validate the data
-         $req->validate([
+         $req->validate(
+            [
             'first_name'            => 'required',
+            'email'                 => 'unique:users,email',
             'gender'                => 'required',
             'date_of_birth'         => 'required',
             'mobile_number'         => 'required',
+            'joining_date'          => 'required',
+            'billing_start_date'    => 'required',
             // 'password'              => 'required|min:5|max:30|confirmed'
-        ]);
+            ],
+            [
+            'first_name.required'           => 'Please fill your first name.',
+            'email.unique'                  => 'This email has been already taken.',
+            'gender.required'               => 'Gender field is required.',
+            'date_of_birth.required'        => 'Please select your date of birth.',
+            'mobile_number.required'        => 'Please give your contact details.',
+            'joining_date.required'         => 'Joining date field is required.',
+            'billing_start_date.required'   => 'Billing start date field is required.',
+            ]
 
-        // Insert into 'temp_students' table
+    );
+
+        // Insert into 'users' table
         $user                       = new User();
         $user->first_name           = $req->first_name;
         $user->middle_name          = $req->middle_name;
@@ -44,11 +62,21 @@ class EmployeeController extends Controller
         $user->dob                  = $req->date_of_birth;
         $user->mobile_no	        = $req->mobile_number;
         $user->phone_no             = $req->phone_number;
-        $user->password             = "12345";
+        $user->joining_date         = $req->joining_date;
+        $user->billing_start_date   = $req->billing_start_date;
+        $user->password             = $default_password;
+        // $user->password             = Hash::make($default_password);
         // $temp_std->password         = Hash::make($request->password);
         $user_save                  = $user->save();
         if($user_save){
-            echo "Success";
+            $data = [
+                'type_menu'                     => 'layout',
+                'department_list'               => db::table('departments')->get(),
+                'employee_type_list'            => db::table('employee_types')->get(),
+                'employee_position_list'        => db::table('employee_positions')->get(),
+                'basic_information'             => db::table('users')->where(['first_name' => $req->first_name, 'mobile_no' => $req->mobile_number]),
+            ];
+            return view('employee.add-employee', ['data' => $data]);
         }
         else{
             echo "Unsuccess";

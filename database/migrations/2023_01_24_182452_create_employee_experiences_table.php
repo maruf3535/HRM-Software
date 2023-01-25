@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('employee_experiences', function (Blueprint $table) {
             $table->foreignId('user_id')->nullable()->references('id')->on('users');
-            $table->foreignId('institution')->nullable()->references('id')->on('experience_institutions');
-            $table->string('passing_year', 4)->nullable();
-            $table->string('result', 5)->nullable();
+            $table->string('institution_name', 200)->nullable();
+            $table->string('designation', 200)->nullable();
+            $table->string('location', 255)->nullable();
+            $table->string('responsibility', 255)->nullable();
             $table->datetime('start_date')->nullable();
             $table->datetime('end_date')->nullable();
         });

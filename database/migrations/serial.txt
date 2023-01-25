@@ -1,0 +1,51 @@
+Order of migrations
+
+users [
+    alter_email_change ----- unique() -> nonunique() (2023_01_25_214850_change_alter_email_in_users_table.php)
+]
+
+// Employment Information start
+departments
+employee_types
+employee_positions
+employment_informations
+// Employment Information end
+
+// Address start
+address_types
+addresses
+// Address end
+
+// Family Info start
+user_relations
+family_infos
+// Family Info end
+
+// User Education start
+qualification_types
+education_majors
+education_institutions
+education_boards
+user_educations
+// User Education end
+
+// Employee Experience start
+employee_experiences
+// Employee Experience end
+
+// Reference start
+references
+// Reference end
+
+// Others start
+blood_groups
+religions
+nationalities
+marital_statuses
+birth_countries
+user_others_informations
+// Others end
+
+
+
+

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('blood_groups', function (Blueprint $table) {
-            $table->string('value', 10)->nullable()->change();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('alter_email', 255)->nullable()->change();
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('blood_groups', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }
