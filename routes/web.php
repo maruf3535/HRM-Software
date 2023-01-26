@@ -20,22 +20,25 @@ Route::redirect('/', '/dashboard-general-dashboard');
 // Route::get('/', )
 Route::prefix('/hrm')->group(function () {
     Route::prefix('/employee')->group(function () {
-        Route::get('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add.employee.page');
-        Route::post('/add-employee/basic-information-submit', [EmployeeController::class, 'basicInformationSubmit'])->name('employee.basic.information.submit');
+        Route::get('/add-employee/{emp_id?}', [EmployeeController::class, 'addEmployee'])->name('add.employee.page');
+        Route::post('/add-employee/basic-information-submit/{emp_id?}', [EmployeeController::class, 'basicInformationSubmit'])->name('employee.basic.information.submit');
         Route::post('/add-employee/set-department-name', [EmployeeController::class, 'setDepartmentName'])->name('add.employee.set.department.name');
         Route::post('/add-employee/employee-information-submit', [EmployeeController::class, 'employeeInformationSubmit'])->name('employee.information.submit');
         Route::get('/test', function(){
-            $test   = new Nationality();
-            $test->value  = "1";
-            // $test->first_name  = "test";
-            // $test->relation  = "1";
-            $test->save();
-            if($test){
-                return "S";
-            }
-            else{
-                return "U";
-            }
+            // $test   = new Nationality();
+            // $test->value  = "1";
+            // $test->save();
+            // if($test){
+            //     return "S";
+            // }
+            // else{
+            //     return "U";
+            // }
+
+            $arr = ['a' => 'apple', 'b' => 'ball'];
+            print_r($arr);
+            $arr += ['c' => 'cat'];
+            print_r($arr);
 
         });
     });

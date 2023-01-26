@@ -2,6 +2,7 @@ Order of migrations
 
 users [
     alter_email_change ----- unique() -> nonunique() (2023_01_25_214850_change_alter_email_in_users_table.php)
+    email_change ----- unique() -> nonunique() (2023_01_26_201815_change_email_in_users_table.php)
 ]
 
 // Employment Information start

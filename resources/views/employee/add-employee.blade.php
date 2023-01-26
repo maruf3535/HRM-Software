@@ -20,9 +20,45 @@
     <link rel="stylesheet" href="{{ asset('library/prismjs/themes/prism.min.css') }}">
 @endpush
 
+{{-- Null variable declare --}}
+@php
+    $emp_id_no = "";
+    $bi_f_n = old('first_name');
+    $bi_m_n = old('middle_name');
+    $bi_l_n = old('last_name');
+    $bi_n_n = old('nickname');
+    $bi_g = old('gender');
+    $bi_dob = old('date_of_birth');
+    $bi_e = old('email');
+    $bi_a_e = old('alternative_email');
+    $bi_m_no = old('mobile_number');
+    $bi_p_no = old('phone_number');
+    $bi_j_dt = old('joining_date');
+    $bi_b_s_dt = old('billing_start_date');
+@endphp
+
 @if (array_key_exists('basic_information', $data))
-    {{ $data['basic_information'] }}
+    {{-- {{ $data['basic_information']->id }}
+    {{ $data['basic_information']->first_name }}
+    {{ $data['basic_information']->last_name }} --}}
+
+    @php
+        $emp_id_no = $data['basic_information']->id;
+        $bi_f_n = $data['basic_information']->first_name;
+        $bi_m_n = $data['basic_information']->middle_name;
+        $bi_l_n = $data['basic_information']->last_name;
+        $bi_n_n = $data['basic_information']->nickname;
+        $bi_g = $data['basic_information']->gender;
+        $bi_dob = $data['basic_information']->dob;
+        $bi_e = $data['basic_information']->email;
+        $bi_a_e = $data['basic_information']->alter_email;
+        $bi_m_no = $data['basic_information']->mobile_no;
+        $bi_p_no = $data['basic_information']->phone_no;
+        $bi_j_dt = substr($data['basic_information']->joining_date, 0, 10);
+        $bi_b_s_dt = substr($data['basic_information']->billing_start_date, 0, 10);
+    @endphp
 @endif
+
 
 @section('main')
     <div class="main-content">
@@ -55,7 +91,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
-                            <form action="{{ route('employee.basic.information.submit') }}" method="post">
+                            <form action="{{ route('employee.basic.information.submit', ['emp_id' => $emp_id_no]) }}" method="post">
                                 @csrf
                                 <div class="card-header">
                                     <h4>Basic Information</h4>
@@ -64,7 +100,7 @@
                                     <div class="form-group">
                                         <label>First Name <span class="required-star">*</span> </label>
                                         <input type="text" class="form-control" name="first_name" maxlength="35"
-                                            required>
+                                            value="{{ $bi_f_n }}" required>
                                         <span class="required-star">
                                             @error('first_name')
                                                 {{ $message }}
@@ -75,36 +111,44 @@
 
                                     <div class="form-group">
                                         <label>Middle Name</label>
-                                        <input type="text" class="form-control" name="middle_name" maxlength="35">
+                                        <input type="text" class="form-control" name="middle_name"
+                                            maxlength="35"value="{{ $bi_m_n }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input type="text" class="form-control" name="last_name" maxlength="35">
+                                        <input type="text" class="form-control" name="last_name" maxlength="35"
+                                            value="{{ $bi_l_n }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Nick Name</label>
-                                        <input type="text" class="form-control" name="nickname" maxlength="35">
+                                        <input type="text" class="form-control" name="nickname" maxlength="35"
+                                            value="{{ $bi_n_n }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" name="email" maxlength="255">
+                                        <input type="email" class="form-control" name="email" maxlength="255"
+                                            value="{{ $bi_e }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Alternative Email</label>
-                                        <input type="email" class="form-control" name="alternative_email" maxlength="255">
+                                        <input type="email" class="form-control" name="alternative_email" maxlength="255"
+                                            value="{{ $bi_a_e }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Gender <span class="required-star">*</span></label>
                                         <select class="form-control" name="gender" required>
                                             <option value="-1">Please Select One</option>
-                                            <option value="1">Male</option>
-                                            <option value="2">Female</option>
-                                            <option value="9">Other</option>
+                                            <option value="1" @php echo ($bi_g == '1' ) ? 'selected' : '' @endphp>Male
+                                            </option>
+                                            <option value="2" @php echo ($bi_g == '2' ) ? 'selected' : '' @endphp>
+                                                Female</option>
+                                            <option value="9" @php echo ($bi_g == '3' ) ? 'selected' : '' @endphp>Other
+                                            </option>
                                         </select>
                                         <span class="required-star">
                                             @error('gender')
@@ -115,7 +159,8 @@
 
                                     <div class="form-group">
                                         <label>Date of Birth <span class="required-star">*</span></label>
-                                        <input type="date" class="form-control" name="date_of_birth" required>
+                                        <input type="date" class="form-control" name="date_of_birth"
+                                            value="{{ $bi_dob }}" required>
                                         <span class="required-star">
                                             @error('date_of_birth')
                                                 {{ $message }}
@@ -132,7 +177,7 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control mobile-number number-input"
-                                                name="mobile_number" maxlength="15" required>
+                                                name="mobile_number" maxlength="15" value="{{ $bi_m_no }}" required>
                                         </div>
                                         <span>Only number!</span>
                                         <span class="required-star">
@@ -151,14 +196,15 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control phone-number number-input"
-                                                name="phone_number" maxlength="15">
+                                                name="phone_number" maxlength="15" value="{{ $bi_p_no }}">
                                         </div>
                                         <span>Only number!</span>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Joining Date <span class="required-star">*</span></label>
-                                        <input type="date" class="form-control" name="joining_date" required>
+                                        <input type="date" class="form-control" name="joining_date"
+                                            value="{{ $bi_j_dt }}" required>
                                         <span class="required-star">
                                             @error('joining_date')
                                                 {{ $message }}
@@ -168,7 +214,8 @@
 
                                     <div class="form-group">
                                         <label>Billing Start Date <span class="required-star">*</span></label>
-                                        <input type="date" class="form-control" name="billing_start_date" required>
+                                        <input type="date" class="form-control" name="billing_start_date"
+                                            value="{{ $bi_b_s_dt }}" required>
                                         <span class="required-star">
                                             @error('billing_start_date')
                                                 {{ $message }}
@@ -194,8 +241,8 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Id Number <span class="required-star">*</span> </label>
-                                        <input type="text" class="form-control" name="first_name" maxlength="35"
-                                            required>
+                                        <input type="text" class="form-control" name="emp_id_no" maxlength="35"
+                                            value="{{ $emp_id_no }}" readonly>
                                     </div>
 
 
